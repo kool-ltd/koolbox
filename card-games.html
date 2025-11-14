@@ -285,7 +285,7 @@
             div.innerHTML = '';
             cards.forEach((card, i) => {
                 const cardDiv = document.createElement('div');
-                cardDiv.className = 'card';
+                cardDiv.className = 'card-games-card';
                 if (flip) cardDiv.classList.add('flipped');
                 if (highlights.includes(i)) cardDiv.classList.add('highlight');
                 cardDiv.innerHTML = `
