@@ -1,7 +1,7 @@
 // -------------------------------------------------
 // CONFIG – change only this line for your site
 // -------------------------------------------------
-const WP_BASE = 'http://leadership-card.zya.me/wp-json/wp/v2'; // <-- edit
+const WP_BASE = 'https://leadership-card.zya.me/wp-json/wp/v2'; // <-- edit
 
 // Helper: fetch JSON with error handling
 async function wpFetch(endpoint) {
