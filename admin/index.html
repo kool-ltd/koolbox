@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Redirecting</title>
+  <!-- Meta refresh as a graceful fallback -->
+  <meta http-equiv="refresh" content="0; url=https://leadership-card.zya.me/wp-admin" />
+  <style>
+    :root {
+      --bg: #0b0f14;
+      --fg: #e6f0f5;
+      --accent: #4ea0ff;
+    }
+    html, body {
+      height: 100%;
+    }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--fg);
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    .wrapper {
+      padding: 20px;
+      border-radius: 12px;
+      background: rgba(20, 25, 30, 0.65);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+      max-width: 90%;
+    }
+    h1 {
+      margin: 0 0 8px;
+      font-size: 1.25rem;
+      letter-spacing: .2px;
+    }
+    p {
+      margin: 0;
+      font-size: 0.95rem;
+      opacity: 0.9;
+    }
+    @media (min-width: 600px) {
+      .wrapper { max-width: 520px; }
+      h1 { font-size: 1.5rem; }
+    }
+    a.inline {
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px dotted rgba(78,160,255,0.8);
+    }
+  </style>
+  <script>
+    // Client-side redirect as a fast path
+    (function () {
+      var target = "https://leadership-card.zya.me/wp-admin";
+      // If JS is enabled, perform an immediate redirect
+      try {
+        window.location.replace(target);
+      } catch (e) {
+        // If replace fails, fall back to setting href
+        window.location.href = target;
+      }
+    })();
+  </script>
+</head>
+<body>
+  <div class="wrapper" aria-live="polite">
+    <h1>Redirecting to admin…</h1>
+    <p>If you are not redirected automatically, please <a class="inline" href="https://leadership-card.zya.me/wp-admin" target="_blank" rel="noopener">click here</a>.</p>
+  </div>
+</body>
+</html>
