@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title id="page-title">Card Games – Kool Box</title>
+  <meta name="description" content="Play Black Jack, Sam Gong, and Chinese Poker. Interactive card games with instant feedback.">
+  <link rel="stylesheet" href="css/style.css">
+  <!-- Tailwind CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body>
+
+<!-- Global Nav -->
+<nav><ul id="nav-list"></ul></nav>
+
+<!-- Hero Section -->
+<section class="hero">
+  <div class="container">
+    <h1 id="page-title">Card Games</h1>
+    <p>Play Black Jack, Sam Gong, and Chinese Poker — right in your browser.</p>
+  </div>
+</section>
+
+<!-- Card Games App (Your Full Code Below) -->
+<section class="py-12">
+  <div class="content-container" id="card-games-app">
+    <!-- Game Selection -->
+        <div id="game-selection" class="step active bg-gray-100 p-6 rounded-lg shadow-lg py-extra mb-extra">
+            <h1 class="text-3xl font-bold mb-2">Card Games</h1>
+            <h2 class="text-xl mb-6 italic">Choose a game to play.</h2>
+            <div class="btn-group">
+                <button onclick="selectGame('blackjack')" class="btn-primary hover:bg-red-700 text-white px-6 py-2 rounded">Black Jack</button>
+                <button onclick="selectGame('samgong')" class="btn-primary hover:bg-red-700 text-white px-6 py-2 rounded">Sam Gong</button>
+                <button onclick="selectGame('chinesepoker')" class="btn-primary hover:bg-red-700 text-white px-6 py-2 rounded">Chinese Poker</button>
+            </div>
+        </div>
+
+        <!-- Black Jack Section -->
+        <div id="blackjack-section" class="game-section">
+            <h1 class="text-3xl font-bold mb-2">Black Jack</h1>
+            <h2 class="text-xl mb-6 italic">Cause & Effect</h2>
+            <div id="blackjack-explanation" class="explanation mx-auto mb-extra">
+                <p>Black Jack is a classic card game where the goal is to get a hand value as close to 21 as possible without going over.</p>
+                <ul class="list-disc pl-6 my-4">
+                    <li><strong>Card Values:</strong> Number cards (2-10) are worth their face value, face cards (J, Q, K) are worth 10, and Aces can be 1 or 11.</li>
+                    <li><strong>Gameplay:</strong> You start with 2 cards. Choose to "Hit" (take another card) or "Stand" (keep your current hand).</li>
+                    <li><strong>Bust:</strong> If your hand exceeds 21, you bust and lose.</li>
+                    <li><strong>No dealer:</strong> This is a solo version to practice getting close to 21.</li>
+                </ul>
+                <p class="mt-4 font-semibold">Example:</p>
+                <div class="demo-grid">
+                    <div class="demo-label">Hand:</div>
+                    <div class="demo-cards">
+                        <div class="card-games-card"><div class="card-face card-front clubs">A♣</div></div>
+                        <div class="card-games-card"><div class="card-face card-front diamonds">10♦</div></div>
+                    </div>
+                    <div class="demo-desc">(Black Jack - 21)</div>
+                </div>
+            </div>
+            <!-- Black Jack Step 1: Demo -->
+            <div id="blackjack-step1" class="step active bg-gray-100 p-6 rounded-lg shadow-lg py-extra mb-extra">
+                <h2 class="text-xl mb-4 text-center">Black Jack Demo</h2>
+                <div class="btn-group">
+                    <button onclick="startBlackJackDemo()" class="btn-primary hover:bg-red-700 text-white px-6 py-2 rounded">Start Demo</button>
+                    <button onclick="backToSelection()" class="bg-gray-500 hover:bg-gray-600 text-white px-6 py-2 rounded">Back to Games</button>
+                </div>
+            </div>
+            <!-- Black Jack Step 2: Play -->
+            <div id="blackjack-step2" class="step bg-gray-100 p-6 rounded-lg shadow-lg py-extra mb-extra">
+                <h2 class="text-xl mb-4 text-center">Your Hand</h2>
+                <div id="blackjackHand" class="flex flex-wrap justify-center"></div>
+                <p id="blackjackSum" class="text-center font-bold mt-4"></p>
+                <div class="btn-group mt-8">
+                    <button id="hitBtn" onclick="blackJackHit()" class="btn-primary hover:bg-red-700 text-white px-6 py-2 rounded">Hit</button>
+                    <button id="standBtn" onclick="blackJackStand()" class="btn-primary hover:bg-red-700 text-white px-6 py-2 rounded">Stand</button>
+                    <button onclick="resetBlackJack()" class="bg-gray-500 hover:bg-gray-600 text-white px-6 py-2 rounded">Restart</button>
+                    <button onclick="backToSelection()" class="bg-gray-500 hover:bg-gray-600 text-white px-6 py-2 rounded">Back to Games</button>
+                </div>
+                <p id="blackjackResult" class="text-center mt-4 font-bold"></p>
+            </div>
+        </div>
+
+        <!-- Sam Gong Section -->
+        <div id="samgong-section" class="game-section">
+            <h1 class="text-3xl font-bold mb-2">Sam Gong</h1>
+            <h2 class="text-xl mb-6 italic">Represent the beginning, process, and end of a journey</h2>
+            <div id="samgong-explanation" class="explanation mx-auto mb-extra">
+                <p>Sam Gong is a simple gambling game where you are dealt 3 cards, and the score is calculated based on the sum modulo 10.</p>
+                <ul class="list-disc pl-6 my-4">
+                    <li><strong>Card Values:</strong> A = 1, 2-10 = face value, J/Q/K = 0.</li>
+                    <li><strong>Scoring:</strong> Sum the values and take modulo 10. Three face cards (J/Q/K) is "Sam Gong" (highest, 10 points).</li>
+                    <li><strong>Gameplay:</strong> Just deal 3 cards and see your score.</li>
+                </ul>
+                <p class="mt-4 font-semibold">Example:</p>
+                <div class="demo-grid">
+                    <div class="demo-label">Hand:</div>
+                    <div class="demo-cards">
+                        <div class="card-games-card"><div class="card-face card-front spades">J♠</div></div>
+                        <div class="card-games-card"><div class="card-face card-front hearts">Q♥</div></div>
+                        <div class="card-games-card"><div class="card-face card-front clubs">K♣</div></div>
+                    </div>
+                    <div class="demo-desc">(Sam Gong - 10)</div>
+                </div>
+            </div>
+            <!-- Sam Gong Step 1: Demo -->
+            <div id="samgong-step1" class="step active bg-gray-100 p-6 rounded-lg shadow-lg py-extra mb-extra">
+                <h2 class="text-xl mb-4 text-center">Sam Gong Demo</h2>
+                <div class="btn-group">
+                    <button onclick="startSamGongDemo()" class="btn-primary hover:bg-red-700 text-white px-6 py-2 rounded">Start Demo</button>
+                    <button onclick="backToSelection()" class="bg-gray-500 hover:bg-gray-600 text-white px-6 py-2 rounded">Back to Games</button>
+                </div>
+            </div>
+            <!-- Sam Gong Step 2: Result -->
+            <div id="samgong-step2" class="step bg-gray-100 p-6 rounded-lg shadow-lg py-extra mb-extra">
+                <h2 class="text-xl mb-4 text-center">Your 3 Cards</h2>
+                <div id="samgongHand" class="flex flex-wrap justify-center"></div>
+                <div class="btn-group mt-8">
+                    <button onclick="newDealSamGong()" class="btn-primary hover:bg-red-700 text-white px-6 py-2 rounded">New Deal</button>
+                    <button onclick="backToSelection()" class="bg-gray-500 hover:bg-gray-600 text-white px-6 py-2 rounded">Back to Games</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chinese Poker Section -->
+        <div id="chinesepoker-section" class="game-section">
+            <h1 class="text-3xl font-bold mb-2">Chinese Poker</h1>
+            <h2 class="text-xl mb-6 italic">Three rows (3-5-5) for the Past, Present, and Future.</h2>
+            <!-- Explanation -->
+            <div id="explanation" class="explanation mx-auto mb-extra">
+                <p>Chinese Poker is a strategic card game where you're dealt 13 cards and must arrange them into three poker hands:</p>
+                <ul class="list-disc pl-6 my-4">
+                    <li><strong>Front hand:</strong> 3 cards (weakest)</li>
+                    <li><strong>Middle hand:</strong> 5 cards (medium strength)</li>
+                    <li><strong>Back hand:</strong> 5 cards (strongest)</li>
+                </ul>
+                <p>The <strong>Back must beat the Middle</strong>, and the <strong>Middle must beat the Front</strong> using standard poker hand rankings. If not, it's a <em>foul</em> and you lose the round.</p>
+              
+                <p class="mt-4 font-semibold">Valid 3-card hands (Front):</p>
+                <ul class="list-disc pl-6 mb-4">
+                    <li>Three of a Kind (strongest)</li>
+                    <li>Pair</li>
+                    <li>High Card (weakest)</li>
+                </ul>
+               
+                <p class="font-semibold">Example of a valid arrangement:</p>
+                <div class="demo-grid">
+                    <div class="demo-label">Front:</div>
+                    <div class="demo-cards">
+                        <div class="card-games-card"><div class="card-face card-front clubs">A♣</div></div>
+                        <div class="card-games-card"><div class="card-face card-front clubs">K♣</div></div>
+                        <div class="card-games-card"><div class="card-face card-front diamonds">Q♦</div></div>
+                    </div>
+                    <div class="demo-desc">(High Card - Ace high)</div>
+               
+                    <div class="demo-label">Middle:</div>
+                    <div class="demo-cards">
+                        <div class="card-games-card"><div class="card-face card-front spades">8♠</div></div>
+                        <div class="card-games-card"><div class="card-face card-front clubs">8♣</div></div>
+                        <div class="card-games-card"><div class="card-face card-front hearts">7♥</div></div>
+                        <div class="card-games-card"><div class="card-face card-front diamonds">7♦</div></div>
+                        <div class="card-games-card"><div class="card-face card-front spades">6♠</div></div>
+                    </div>
+                    <div class="demo-desc">(Two Pair - 8s and 7s)</div>
+               
+                    <div class="demo-label">Back:</div>
+                    <div class="demo-cards">
+                        <div class="card-games-card"><div class="card-face card-front hearts">10♥</div></div>
+                        <div class="card-games-card"><div class="card-face card-front hearts">J♥</div></div>
+                        <div class="card-games-card"><div class="card-face card-front hearts">Q♥</div></div>
+                        <div class="card-games-card"><div class="card-face card-front hearts">K♥</div></div>
+                        <div class="card-games-card"><div class="card-face card-front hearts">A♥</div></div>
+                    </div>
+                    <div class="demo-desc">(Royal Flush in Hearts)</div>
+                </div>
+                <p class="mt-4 text-sm text-gray-600">This is valid: Royal Flush > Two Pair > High Card.</p>
+            </div>
+            <!-- Step 1: Choose Random or Pick -->
+            <div id="step1" class="step active bg-gray-100 p-6 rounded-lg shadow-lg py-extra mb-extra">
+                <h2 class="text-xl mb-4 text-center">We can help you arrange your cards</h2>
+                <div class="btn-group">
+                    <button onclick="goToRandom()" class="btn-primary hover:bg-red-700 text-white px-6 py-2 rounded">See Demo</button>
+                    <button onclick="goToPick()" class="btn-primary hover:bg-red-700 text-white px-6 py-2 rounded">Pick Cards</button>
+                    <button onclick="backToSelection()" class="bg-gray-500 hover:bg-gray-600 text-white px-6 py-2 rounded">Back to Games</button>
+                </div>
+            </div>
+            <!-- Step 2 (Random): Show 13 Cards -->
+            <div id="step2-random" class="step bg-gray-100 p-6 rounded-lg shadow-lg py-extra mb-extra">
+                <h2 class="text-xl mb-4 text-center">Your 13 Random Cards</h2>
+                <div id="randomCards" class="flex flex-wrap justify-center"></div>
+                <div class="btn-group mt-8">
+                    <button onclick="goToArrange('step2-random')" class="btn-primary hover:bg-red-700 text-white px-6 py-2 rounded">Arrange Hands</button>
+                    <button onclick="resetToStep1()" class="bg-gray-500 hover:bg-gray-600 text-white px-6 py-2 rounded">Back</button>
+                    <button onclick="backToSelection()" class="bg-gray-500 hover:bg-gray-600 text-white px-6 py-2 rounded">Back to Games</button>
+                </div>
+            </div>
+            <!-- Step 2 (Pick): Show 52 Cards in Grid -->
+            <div id="step2-pick" class="step bg-gray-100 p-6 rounded-lg shadow-lg py-extra mb-extra">
+                <h2 class="text-xl mb-4 text-center">Pick 13 Cards</h2>
+                <div class="grid grid-cols-4 gap-6 max-w-md mx-auto">
+                    <!-- Order: Spades, Hearts, Clubs, Diamonds -->
+                    <div id="spades" class="flex flex-col items-center gap-6"></div>
+                    <div id="hearts" class="flex flex-col items-center gap-6"></div>
+                    <div id="clubs" class="flex flex-col items-center gap-6"></div>
+                    <div id="diamonds" class="flex flex-col items-center gap-6"></div>
+                </div>
+                <div class="btn-group mt-8">
+                    <button onclick="confirmPick()" class="btn-primary hover:bg-red-700 text-white px-6 py-2 rounded" disabled id="confirmBtn">Confirm Selection (0/13)</button>
+                    <button onclick="resetToStep1()" class="bg-gray-500 hover:bg-gray-600 text-white px-6 py-2 rounded">Back</button>
+                    <button onclick="backToSelection()" class="bg-gray-500 hover:bg-gray-600 text-white px-6 py-2 rounded">Back to Games</button>
+                </div>
+                <p id="pickError" class="error text-center mt-3 hidden">Please select exactly 13 cards.</p>
+            </div>
+            <!-- Step 3: Optimal Arrangement -->
+            <div id="step3" class="step bg-gray-100 p-6 rounded-lg shadow-lg py-extra mb-extra">
+                <h2 class="text-xl mb-4 text-center slide-in">Arrangement Suggestion</h2>
+                <div id="arrangements"></div>
+                <div class="btn-group mt-8">
+                    <button onclick="goBackToStep2()" class="bg-gray-500 hover:bg-gray-600 text-white px-6 py-2 rounded">Back</button>
+                    <button onclick="resetToStep1()" class="btn-primary hover:bg-red-700 text-white px-6 py-2 rounded">Start Over</button>
+                    <button onclick="backToSelection()" class="bg-gray-500 hover:bg-gray-600 text-white px-6 py-2 rounded">Back to Games</button>
+                </div>
+            </div>
+        </div>
+  </div>
+</section>
+
+<footer><div class="container">© 2025 Kool Box</div></footer>
+
+<script src="js/app.js"></script>
+<script>
+        const suits = { h: '♥', s: '♠', c: '♣', d: '♦' };
+        const suitClasses = { h: 'hearts', s: 'spades', c: 'clubs', d: 'diamonds' };
+        const suitValues = { s: 4, h: 3, c: 2, d: 1 };
+        const ranks = ['A', 'K', 'Q', 'J', '10', '9', '8', '7', '6', '5', '4', '3', '2'];
+        const rankValues = { '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9, '10': 10, 'J': 11, 'Q': 12, 'K': 13, 'A': 14 };
+        let currentCards = [];
+        let previousStep = '';
+
+        // Game Selection Control
+        function selectGame(game) {
+            document.getElementById('game-selection').style.display = 'none';
+            document.querySelectorAll('.game-section').forEach(sec => sec.classList.remove('active'));
+            document.getElementById(game + '-section').classList.add('active');
+            if (game === 'chinesepoker') {
+                showStep('step1');
+            } else if (game === 'blackjack') {
+                showBlackJackStep('blackjack-step1');
+            } else if (game === 'samgong') {
+                showSamGongStep('samgong-step1');
+            }
+        }
+        function backToSelection() {
+            document.querySelectorAll('.game-section').forEach(sec => sec.classList.remove('active'));
+            document.getElementById('game-selection').style.display = 'block';
+        }
+
+        // Shared Functions
+        function generateDeck() {
+            const deck = [];
+            for (let suit in suits) {
+                for (let rank of ranks) {
+                    deck.push(rank + suit);
+                }
+            }
+            return deck;
+        }
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+        function compareCards(a, b) {
+            const rankA = rankValues[a.slice(0, -1)];
+            const rankB = rankValues[b.slice(0, -1)];
+            const suitA = a.slice(-1);
+            const suitB = b.slice(-1);
+            if (rankA !== rankB) return rankB - rankA;
+            return suitValues[suitB] - suitValues[suitA];
+        }
+        function displayCards(cards, divId, flip = false, highlights = []) {
+            const div = document.getElementById(divId);
+            div.innerHTML = '';
+            cards.forEach((card, i) => {
+                const cardDiv = document.createElement('div');
+                cardDiv.className = 'card';
+                if (flip) cardDiv.classList.add('flipped');
+                if (highlights.includes(i)) cardDiv.classList.add('highlight');
+                cardDiv.innerHTML = `
+                    <div class="card-face card-back"></div>
+                    <div class="card-face card-front ${suitClasses[card.slice(-1)]}">
+                        ${formatRank(card.slice(0, -1)) + suits[card.slice(-1)]}
+                    </div>`;
+                div.appendChild(cardDiv);
+                if (flip) {
+                    setTimeout(() => cardDiv.classList.remove('flipped'), 500 + i * 100);
+                }
+            });
+        }
+        function formatRank(rank) {
+            return rank === '10' ? '10' : rank;
+        }
+
+        // Black Jack Specific
+        let blackjackDeck = [];
+        let blackjackHand = [];
+        function showBlackJackStep(stepId) {
+            document.querySelectorAll('#blackjack-section .step').forEach(step => step.classList.remove('active'));
+            document.getElementById(stepId).classList.add('active');
+        }
+        function startBlackJackDemo() {
+            blackjackDeck = shuffle(generateDeck());
+            blackjackHand = [blackjackDeck.pop(), blackjackDeck.pop()];
+            displayCards(blackjackHand, 'blackjackHand', true, []);
+            updateBlackJackSum();
+            document.getElementById('hitBtn').disabled = false;
+            document.getElementById('standBtn').disabled = false;
+            document.getElementById('blackjackResult').innerText = '';
+            showBlackJackStep('blackjack-step2');
+        }
+        function blackJackHit() {
+            if (blackjackHand.length < 5) {  // Arbitrary limit
+                const newCard = blackjackDeck.pop();
+                blackjackHand.push(newCard);
+                displayCards(blackjackHand, 'blackjackHand', false, []);
+                updateBlackJackSum();
+            }
+        }
+        function blackJackStand() {
+            updateBlackJackSum(true);
+        }
+        function updateBlackJackSum(isStand = false) {
+            let sum = 0;
+            let aces = 0;
+            blackjackHand.forEach(card => {
+                const rank = card.slice(0, -1);
+                let val = rankValues[rank];
+                if (val > 10) val = 10;
+                if (rank === 'A') {
+                    aces++;
+                    val = 11;
+                }
+                sum += val;
+            });
+            while (sum > 21 && aces > 0) {
+                sum -= 10;
+                aces--;
+            }
+            document.getElementById('blackjackSum').innerText = `Sum: ${sum}`;
+            let highlights = [];
+            if (sum > 21 || isStand) {
+                highlights.push(0); // first card
+                if (sum > 21) {
+                    document.getElementById('blackjackResult').innerText = 'Bust!';
+                    highlights.push(blackjackHand.length - 2); // last before bust
+                } else if (isStand) {
+                    document.getElementById('blackjackResult').innerText = `Final Sum: ${sum}`;
+                    highlights.push(blackjackHand.length - 1); // last card
+                }
+                displayCards(blackjackHand, 'blackjackHand', false, highlights);
+                document.getElementById('hitBtn').disabled = true;
+                document.getElementById('standBtn').disabled = true;
+            }
+        }
+        function resetBlackJack() {
+            blackjackHand = [];
+            showBlackJackStep('blackjack-step1');
+        }
+
+        // Sam Gong Specific
+        let samgongDeck = [];
+        let samgongHand = [];
+        function showSamGongStep(stepId) {
+            document.querySelectorAll('#samgong-section .step').forEach(step => step.classList.remove('active'));
+            document.getElementById(stepId).classList.add('active');
+        }
+        function startSamGongDemo() {
+            samgongDeck = shuffle(generateDeck());
+            samgongHand = [samgongDeck.pop(), samgongDeck.pop(), samgongDeck.pop()];
+            displayCards(samgongHand, 'samgongHand', true, [0,1,2]);
+            showSamGongStep('samgong-step2');
+        }
+        function newDealSamGong() {
+            samgongDeck = shuffle(generateDeck());
+            samgongHand = [samgongDeck.pop(), samgongDeck.pop(), samgongDeck.pop()];
+            displayCards(samgongHand, 'samgongHand', true, [0,1,2]);
+        }
+
+        // Chinese Poker (original code)
+        // Step control
+        function showStep(stepId) {
+            document.querySelectorAll('#chinesepoker-section .step').forEach(step => step.classList.remove('active'));
+            document.getElementById(stepId).classList.add('active');
+            const explanation = document.getElementById('explanation');
+            explanation.style.display = (stepId === 'step1') ? 'block' : 'none';
+        }
+        function goToRandom() {
+            currentCards = shuffle(generateDeck()).slice(0, 13).sort(compareCards);
+            displayCards(currentCards, 'randomCards', false, []);
+            previousStep = 'step2-random';
+            showStep('step2-random');
+        }
+        function goToPick() {
+            currentCards = [];
+            displayDeck();  // No highlight here
+            document.getElementById('confirmBtn').innerHTML = 'Confirm Selection (0/13)';
+            document.getElementById('confirmBtn').disabled = true;
+            document.getElementById('pickError').classList.add('hidden');
+            previousStep = 'step2-pick';
+            showStep('step2-pick');
+        }
+        function goToArrange(step) {
+            previousStep = step;
+            arrangeHands();
+            showStep('step3');
+        }
+        function goBackToStep2() {
+            showStep(previousStep);
+        }
+        function resetToStep1() {
+            currentCards = [];
+            previousStep = '';
+            showStep('step1');
+        }
+
+        // Display full deck for pick
+        function displayDeck() {
+            const deck = generateDeck();
+            const bySuit = {
+                s: deck.filter(c => c.endsWith('s')).sort(compareCards),
+                h: deck.filter(c => c.endsWith('h')).sort(compareCards),
+                c: deck.filter(c => c.endsWith('c')).sort(compareCards),
+                d: deck.filter(c => c.endsWith('d')).sort(compareCards)
+            };
+
+            const suitOrder = ['s', 'h', 'c', 'd'];
+            const containerIds = ['spades', 'hearts', 'clubs', 'diamonds'];
+
+            containerIds.forEach((id, index) => {
+                const suitKey = suitOrder[index];
+                const suitDiv = document.getElementById(id);
+                suitDiv.innerHTML = '';
+                const suitCards = bySuit[suitKey];
+
+                suitCards.forEach(card => {
+                    const cardDiv = document.createElement('div');
+                    cardDiv.className = `card ${suitClasses[card.slice(-1)]}`;
+                    cardDiv.innerHTML = `<div class="card-face card-front">${formatRank(card.slice(0, -1)) + suits[card.slice(-1)]}</div>`;
+                    if (currentCards.includes(card)) cardDiv.classList.add('selected');
+                    cardDiv.onclick = () => toggleCard(card, cardDiv);
+                    suitDiv.appendChild(cardDiv);
+                });
+            });
+        }
+
+        function toggleCard(card, cardDiv) {
+            if (currentCards.includes(card)) {
+                currentCards = currentCards.filter(c => c !== card);
+                cardDiv.classList.remove('selected');
+            } else if (currentCards.length < 13) {
+                currentCards.push(card);
+                cardDiv.classList.add('selected');
+            }
+            document.getElementById('confirmBtn').innerHTML = `Confirm Selection (${currentCards.length}/13)`;
+            document.getElementById('confirmBtn').disabled = currentCards.length !== 13;
+            document.getElementById('pickError').classList.toggle('hidden', currentCards.length <= 13);
+        }
+
+        function confirmPick() {
+            if (currentCards.length !== 13) {
+                document.getElementById('pickError').classList.remove('hidden');
+                return;
+            }
+            currentCards.sort(compareCards);
+            goToArrange('step2-pick');
+        }
+
+        // Poker evaluation (updated)
+        function parseCard(cardStr) {
+            return { rank: rankValues[cardStr.slice(0, -1)], suit: cardStr.slice(-1) };
+        }
+        function evaluate5(cards) {
+            const parsed = cards.map(parseCard).sort((a, b) => b.rank - a.rank);
+            const ranks = parsed.map(c => c.rank);
+            const suits = parsed.map(c => c.suit);
+            const counts = ranks.reduce((acc, r) => { acc[r] = (acc[r] || 0) + 1; return acc; }, {});
+            const rankCounts = Object.values(counts).sort((a, b) => b - a);
+            const uniqueRanks = Object.keys(counts).map(Number).sort((a, b) => b - a);
+            const threeRank = Object.entries(counts).find(([r, c]) => c === 3)?.[0] || 0;
+            const pairRank = Object.entries(counts).find(([r, c]) => c === 2)?.[0] || 0;
+            let straight = false;
+            let straightHigh = 0;
+            const sortedRanks = [...new Set(ranks)].sort((a, b) => a - b);
+            if (sortedRanks.length === 5 && (sortedRanks[4] - sortedRanks[0] === 4 || sortedRanks.join(',') === '2,3,4,5,14')) {
+                straight = true;
+                straightHigh = sortedRanks[4] === 14 && sortedRanks[0] === 2 ? 5 : sortedRanks[4];
+            }
+            const flush = new Set(suits).size === 1;
+            const descMap = {
+                8: 'Royal Flush', 7: 'Straight Flush', 6: 'Four of a Kind', 5: 'Full House',
+                4: 'Flush', 3: 'Straight', 2: 'Three of a Kind', 1: 'Two Pair', 0: 'Pair', '-1': 'High Card'
+            };
+            if (flush && straight && straightHigh === 14 && ranks[0] === 14) return { type: 8, high: [14], desc: descMap[8] };
+            if (flush && straight) return { type: 7, high: [straightHigh], desc: descMap[7] };
+            if (rankCounts[0] === 4) {
+                const quadRank = Object.entries(counts).find(([r, c]) => c === 4)[0];
+                return { type: 6, high: [parseInt(quadRank)], desc: descMap[6] };
+            }
+            if (rankCounts[0] === 3 && rankCounts[1] === 2) return { type: 5, high: [parseInt(threeRank), parseInt(pairRank)], desc: descMap[5] };
+            if (flush) return { type: 4, high: ranks, desc: descMap[4] };
+            if (straight) return { type: 3, high: [straightHigh], desc: descMap[3] };
+            if (rankCounts[0] === 3) return { type: 2, high: [parseInt(threeRank)], desc: descMap[2] };
+            if (rankCounts[0] === 2 && rankCounts[1] === 2) {
+                const pairRanks = Object.entries(counts).filter(([r, c]) => c === 2).map(([r]) => parseInt(r)).sort((a, b) => b - a);
+                return { type: 1, high: pairRanks, desc: descMap[1] };
+            }
+            if (rankCounts[0] === 2) {
+                const pairRank = Object.entries(counts).find(([r, c]) => c === 2)[0];
+                return { type: 0, high: [parseInt(pairRank)], desc: descMap[0] };
+            }
+            return { type: -1, high: ranks, desc: descMap['-1'] };
+        }
+        function evaluate3(cards) {
+            const parsed = cards.map(parseCard).sort((a, b) => b.rank - a.rank);
+            const ranks = parsed.map(c => c.rank);
+            const counts = ranks.reduce((acc, r) => { acc[r] = (acc[r] || 0) + 1; return acc; }, {});
+            const rankCounts = Object.values(counts).sort((a, b) => b - a);
+            const uniqueRanks = Object.keys(counts).map(Number).sort((a, b) => b - a);
+            if (rankCounts[0] === 3) return { type: 2, high: uniqueRanks, desc: 'Three of a Kind' };
+            if (rankCounts[0] === 2) {
+                const pairRank = Object.entries(counts).find(([r, c]) => c === 2)[0];
+                return { type: 1, high: [parseInt(pairRank)], desc: 'Pair' };
+            }
+            return { type: 0, high: uniqueRanks, desc: 'High Card' };
+        }
+        function getRoyalty(eval, row) {
+            if (row === 'front') {
+                if (eval.type === 1) return Math.max(0, eval.high[0] - 5);
+                if (eval.type === 2) return eval.high[0] + 8;
+                return 0;
+            } else {
+                const mul = row === 'middle' ? 2 : 1;
+                if (eval.type === 8) return 25 * mul;
+                if (eval.type === 7) return 15 * mul;
+                if (eval.type === 6) return 10 * mul;
+                if (eval.type === 5) return 6 * mul;
+                if (eval.type === 4) return 4 * mul;
+                if (eval.type === 3) return 2 * mul;
+                return 0;
+            }
+        }
+        function getRankingKey(eval, cards, is3card = false) {
+            let type = eval.type;
+            if (is3card) {
+                if (type === 0) type = -1;
+                if (type === 1) type = 0;
+            }
+            const parsed = cards.map(parseCard);
+            let ranks = parsed.map(c => c.rank).sort((a, b) => b - a);
+            let key = [type];
+            if (type <= -1 || type === 4) key = key.concat(ranks);
+            else if (type === 0) {
+                const pairRank = eval.high[0];
+                const kickers = ranks.filter(r => r !== pairRank).sort((a, b) => b - a);
+                key = key.concat([pairRank, ...kickers]);
+            } else if (type === 1) {
+                const highPair = eval.high[0], lowPair = eval.high[1];
+                const kicker = ranks.find(r => r !== highPair && r !== lowPair);
+                key = key.concat([highPair, lowPair, kicker]);
+            } else if (type === 2) {
+                const tripsRank = eval.high[0];
+                const kickers = ranks.filter(r => r !== tripsRank).sort((a, b) => b - a);
+                key = key.concat([tripsRank, ...kickers]);
+            } else if (type === 3 || type === 7) key = key.concat(eval.high);
+            else if (type === 5) key = key.concat(eval.high);
+            else if (type === 6) {
+                const quadRank = eval.high[0];
+                const kicker = ranks.find(r => r !== quadRank);
+                key = key.concat([quadRank, kicker]);
+            } else if (type === 8) key = key.concat([14]);
+            return key;
+        }
+        function compareHands(evalA, cardsA, is3A, evalB, cardsB, is3B) {
+            const keyA = getRankingKey(evalA, cardsA, is3A);
+            const keyB = getRankingKey(evalB, cardsB, is3B);
+            const len = Math.max(keyA.length, keyB.length);
+            const paddedA = [...keyA, ...new Array(len - keyA.length).fill(0)];
+            const paddedB = [...keyB, ...new Array(len - keyB.length).fill(0)];
+            for (let i = 0; i < len; i++) {
+                if (paddedA[i] !== paddedB[i]) return paddedA[i] - paddedB[i];
+            }
+            return 0;
+        }
+        function combinations(arr, k) {
+            const res = [];
+            function comb(start, combo) {
+                if (combo.length === k) {
+                    res.push([...combo]);
+                    return;
+                }
+                for (let i = start; i < arr.length; i++) {
+                    combo.push(arr[i]);
+                    comb(i + 1, combo);
+                    combo.pop();
+                }
+            }
+            comb(0, []);
+            return res;
+        }
+
+        // Arrange Hands for Chinese Poker
+        function arrangeHands() {
+            const allCards = [...currentCards];
+            const validArrangements = [];
+            const backs = combinations(allCards, 5);
+            for (let back of backs) {
+                const evalB = evaluate5(back);
+                const rem1 = allCards.filter(c => !back.includes(c));
+                const middles = combinations(rem1, 5);
+                for (let middle of middles) {
+                    const evalM = evaluate5(middle);
+                    const front = rem1.filter(c => !middle.includes(c));
+                    const evalF = evaluate3(front);
+                    if (compareHands(evalB, back, false, evalM, middle, false) <= 0) continue;
+                    if (compareHands(evalM, middle, false, evalF, front, true) <= 0) continue;
+                    const royaltyB = getRoyalty(evalB, 'back');
+                    const royaltyM = getRoyalty(evalM, 'middle');
+                    const royaltyF = getRoyalty(evalF, 'front');
+                    const totalRoyalty = royaltyB + royaltyM + royaltyF;
+                    const typeScore = 8 * evalB.type + 4 * evalM.type + evalF.type;
+                    const score = totalRoyalty * 100 + typeScore;
+                    const frontValue = evalF.high.reduce((sum, val) => sum + val, 0);
+                    const middleValue = evalM.high.reduce((sum, val) => sum + val, 0);
+                    validArrangements.push({
+                        score,
+                        frontValue,
+                        middleValue,
+                        front: front.sort(compareCards),
+                        middle: middle.sort(compareCards),
+                        back: back.sort(compareCards),
+                        evals: { f: evalF, m: evalM, b: evalB },
+                        royalties: { f: royaltyF, m: royaltyM, b: royaltyB, total: totalRoyalty }
+                    });
+                }
+            }
+            if (validArrangements.length === 0) {
+                document.getElementById('arrangements').innerHTML = '<p class="error text-center">No valid arrangement found without fouling.</p>';
+                return;
+            }
+            validArrangements.sort((a, b) => {
+                if (b.score !== a.score) return b.score - a.score;
+                if (b.frontValue !== a.frontValue) return b.frontValue - a.frontValue;
+                return b.middleValue - a.middleValue;
+            });
+            const best = validArrangements[0];
+            const arrangementsDiv = document.getElementById('arrangements');
+            arrangementsDiv.innerHTML = `
+                <div class="front-section">
+                    <div class="hand-title">Front (3 cards):</div>
+                    <div id="frontHand" class="flex justify-center"></div>
+                </div>
+                <div class="hand">
+                    <div class="hand-title">Middle (5 cards):</div>
+                    <div id="middleHand" class="flex justify-center flex-wrap"></div>
+                </div>
+                <div class="hand">
+                    <div class="hand-title">Back (5 cards):</div>
+                    <div id="backHand" class="flex justify-center flex-wrap"></div>
+                </div>
+            `;
+            // Highlight highest card in each row
+            displayCards(best.front, 'frontHand', true, [0]);
+            displayCards(best.middle, 'middleHand', true, [0]);
+            displayCards(best.back, 'backHand', true, [0]);
+        }
+    </script>
+</body>
+</html>
